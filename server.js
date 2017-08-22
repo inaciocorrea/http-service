@@ -1,13 +1,21 @@
 var express = require('express'),
 	app = express(),
 	_ = require('underscore'),
+	compression = require('compression'),
 	bodyParser = require('body-parser');
 
+app.use(compression());
+	
 app.enable('trust proxy');
+app.disable('x-powered-by');
 app.use(bodyParser.json());
 
 app.get('/', function(req, res){
   res.send('I\'m here !');
+});
+
+app.get('/user-agent', function(req, res) {
+	res.send(req.header('user-agent'));
 });
 
 app.get('/status/:code', function(req, res) {
@@ -26,6 +34,10 @@ app.get('/user-agent', function(req, res) {
 
 app.get('/headers', function(req, res) {
 	res.send({'headers': req.headers})
+});
+
+app.get('/gzip', function(req, res) {
+	res.send(req.headers);
 });
 
 app.get('/get', function(req, res) {
