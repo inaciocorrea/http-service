@@ -137,7 +137,7 @@ app.get('/eicar', function(req, res) {
 
 /* istanbul ignore next */
 if (!module.parent) {
-  app.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080);
+  app.listen(process.env.PORT || 8080);
   console.log('INFO: HTTPSRV started');
 }
 
